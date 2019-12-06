@@ -1,0 +1,181 @@
+declare -a namapenduduk 
+declare -a nomorktp
+declare -a jeniskelamin
+declare -a tgllahir
+declare -a tempatlahir
+declare -a agama
+declare -a alamat
+declare -a pekerjaan
+while :; do
+clear
+
+
+echo "============================"
+echo "Program Sistem Data Penduduk"
+echo "============================"
+echo "1. Input data Penduduk"
+echo "2. View data Penduduk"
+echo "3. Update data Penduduk"
+echo "4. Buat direktori untuk simpan data"
+echo "5. Eksport data .txt"
+echo "6. Keluar Program"
+echo "============================"
+read pilih
+
+if [ $pilih == 1 ]
+then
+    clear
+   echo -n "masukkan jumlah penduduk : "
+   read jml 
+    for ((i=0; i<$jml; i++)) do
+        echo -n $(( $i + 1))". nama penduduk: "
+        read nama
+        namapenduduk[$i]=$nama
+
+	    echo -n " Nomor KTP :  "
+        read ktp
+        nomorktp[$i]=$ktp
+
+        echo -n "jenis kelamin: "
+        read kelamin
+        jeniskelamin[$i]=$kelamin
+
+        echo -n "Agama : "
+        read ag
+        Agama[$i]=$ag
+
+        echo -n "Tanggal Lahir: "
+        read Tanggal
+        tgllahir[$i]=$Tanggal
+
+        echo -n "Kota Asal: "
+        read Asal
+        tempatlahir[$i]=$Asal
+
+        echo -n "Alamat: "
+        read al
+        alamat[$i]=$al
+
+        echo -n "Pekerjaan: "
+        read kerja
+        pekerjaan[$i]=$kerja
+
+    done
+fi
+
+if [ $pilih == 2 ]
+then
+    clear
+   echo  " Biodata Penduduk "
+   
+    for ((i=0; i<$jml; i++)) do
+        echo  $(( $i + 1))". Nama      : ${namapenduduk[$i]}"
+        echo  " Nomor KTP     : ${nomorktp[$i]}"
+        echo  " Jenis kelamin : ${jeniskelamin[$i]}"
+        echo  " Agama         : ${Agama[$i]}"
+        echo  " Tanggal Lahir : ${tgllahir[$i]}"
+        echo  " Kota Asal     : ${tempatlahir[$i]}"
+        echo  " Alamat        : ${alamat[$i]}"
+        echo  " pekerjaan     : ${pekerjaan[$i]}"
+        echo ""
+    done
+    read
+fi
+
+if [ $pilih == 3 ]
+    then
+    clear
+    echo -n "masukkan urutan penduduk yang akan diganti :"
+    read urutan
+
+    echo -n "nama : "
+    read nama
+
+    echo -n "Nomor KTP : "
+    read ktp
+
+    echo -n "jenis kelamin: "
+    read kelamin
+
+    echo -n "Agama: "
+    read ag
+
+    echo -n "Tanggal Lahir: "
+    read Tanggal
+
+    echo -n "Kota Asal: "
+    read Asal
+
+    echo -n "Alamat: "
+    read al
+
+    echo -n "Pekerjaan: "
+    read kerja
+
+    pekerjaan[$urutan-1]=$kerja
+    namapenduduk[$urutan-1]=$nama
+    nomorktp[$urutan-1]=$ktp
+    jeniskelamin[$urutan-1]=$kelamin
+    tgllahir[$urutan-1]=$Tanggal
+    tempatlahir[$urutan-1]=$Asal
+    alamat[$urutan-1]=$al
+    Agama[$urutan-1]=$ag
+    
+fi
+
+if [ $pilih == 4 ] 
+then
+
+    echo "masukan nama folder : "
+    read folder
+    mkdir $folder
+
+    echo "Cek keberadaan folder?(y/t)"
+      read cek_folder
+
+      if [ $cek_folder == y ]
+      then
+         ls -l
+      fi
+      
+      if [ $cek_folder != y ]
+      then
+         echo "Okee!"
+      fi
+read
+
+fi
+
+if [ $pilih == 5 ]
+then
+    
+    cd $folder
+
+    echo -n "Nama File : "
+    read namafile
+    for ((i=0; i<$jml; i++)) do
+        echo  -e "        ==================================\n
+                    DATA PENDUDUK\n
+        ==================================\n
+           Nama          : ${namapenduduk[$i]}\n
+           Nomor KTP     : ${nomorktp[$i]}\n
+           Jenis kelamin : ${jeniskelamin[$i]}\n
+           Agama         : ${Agama[$i]}\n
+           Tanggal Lahir : ${tgllahir[$i]}\n
+           Kota Asal     : ${tempatlahir[$i]}\n
+           Alamat        : ${alamat[$i]}\n
+           pekerjaan     : ${pekerjaan[$i]}" > $namafile[$i].txt
+        echo ""
+
+        clear
+
+        echo "Pembuatan file telah berhasil!!"
+        read
+    done
+fi
+
+if [ $pilih == 6 ]
+then
+    exit
+fi
+done
